@@ -1,9 +1,10 @@
+<!DOCTYPE html>
 <html lang="en">
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>GameZone - Premium Puzzle Games</title>
-  <link rel="stylesheet" href="css/games-style.css">
+  <link rel="stylesheet" href="games-style.css">
   <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.2/gsap.min.js"></script>
   <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.2/ScrollTrigger.min.js"></script>
 </head>
@@ -34,5 +35,366 @@
         <small>PREMIUM PUZZLE GAMES</small>
       </div>
     </a>
+
+    <ul class="nav-links">
+      <li><a href="index.html" class="active">Home</a></li>
+      <li><a href="#games">Games</a></li>
+      <li><a href="#leaderboard">Leaderboard</a></li>
+      <li><a href="#about">About</a></li>
+      <li><a href="#contact">Contact</a></li>
+    </ul>
+
+    <a href="#games" class="nav-cta">Play Now</a>
+
+    <button class="menu-toggle" aria-label="Menu">
+      <span></span>
+      <span></span>
+      <span></span>
+    </button>
+  </nav>
+
+  <!-- Hero Section -->
+  <section id="home" class="hero">
+    <div class="hero-content">
+      <div class="hero-tag">🎮 Welcome to the Ultimate Gaming Experience</div>
+      <h1>
+        <span class="gradient-text">Challenge Your</span><br>
+        <span class="gradient-text">Mind & Skills</span>
+      </h1>
+      <p>
+        Dive into our collection of premium puzzle games designed to test your logic, 
+        memory, and reaction speed. Beautiful animations, addictive gameplay, and 
+        competitive leaderboards await you.
+      </p>
+      <div class="hero-buttons">
+        <a href="#games" class="btn btn-primary">Start Playing</a>
+        <a href="#about" class="btn btn-outline">Learn More</a>
+      </div>
+    </div>
+  </section>
+
+  <!-- Games Section -->
+  <section id="games">
+    <div class="section-header">
+      <span class="section-tag">Our Collection</span>
+      <h2 class="section-title">Featured <span class="gradient-text">Games</span></h2>
+      <p style="color: var(--gray); max-width: 600px; margin: 0 auto;">
+        Choose from our collection of handcrafted puzzle games. Each game offers unique challenges and endless fun.
+      </p>
+    </div>
+
+    <div class="games-grid">
+      <div class="game-card" onclick="scrollToGame('sliding-puzzle')">
+        <div class="game-img" style="background: linear-gradient(135deg, #1e3a8a, #3b82f6);">🧩</div>
+        <div class="game-info">
+          <h3>Sliding Puzzle</h3>
+          <p>Classic number puzzle. Slide tiles to arrange them in order. Simple to learn, impossible to master!</p>
+          <div class="game-meta">
+            <span>⏱️ Timed</span>
+            <span>📊 Medium</span>
+          </div>
+          <div class="game-tags">
+            <span>Logic</span>
+            <span>Classic</span>
+            <span>Brain Training</span>
+          </div>
+        </div>
+      </div>
+
+      <div class="game-card" onclick="scrollToGame('memory-match')">
+        <div class="game-img" style="background: linear-gradient(135deg, #1d4ed8, #3b82f6);">🎴</div>
+        <div class="game-info">
+          <h3>Memory Match</h3>
+          <p>Test your memory by matching pairs of cards. How many moves can you solve it in?</p>
+          <div class="game-meta">
+            <span>🧠 Memory</span>
+            <span>📊 Easy</span>
+          </div>
+          <div class="game-tags">
+            <span>Memory</span>
+            <span>Pairs</span>
+            <span>Fun</span>
+          </div>
+        </div>
+      </div>
+
+      <div class="game-card" onclick="scrollToGame('color-match')">
+        <div class="game-img" style="background: linear-gradient(135deg, #1e40af, #3b82f6);">🎨</div>
+        <div class="game-info">
+          <h3>Color Match</h3>
+          <p>Match the color name with its actual color. Your brain will play tricks on you!</p>
+          <div class="game-meta">
+            <span>⚡ Fast</span>
+            <span>📊 Hard</span>
+          </div>
+          <div class="game-tags">
+            <span>Colors</span>
+            <span>Reflex</span>
+            <span>Stroop Test</span>
+          </div>
+        </div>
+      </div>
+
+      <div class="game-card" onclick="scrollToGame('reaction-time')">
+        <div class="game-img" style="background: linear-gradient(135deg, #0f172a, #1d4ed8);">⚡</div>
+        <div class="game-info">
+          <h3>Reaction Time</h3>
+          <p>Test your reflexes! Click as fast as you can when the screen turns green. Beat your best time!</p>
+          <div class="game-meta">
+            <span>⚡ Reflex</span>
+            <span>📊 Medium</span>
+          </div>
+          <div class="game-tags">
+            <span>Speed</span>
+            <span>Reflex</span>
+            <span>Competitive</span>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Sliding Puzzle Game -->
+  <section id="sliding-puzzle">
+    <div class="game-section">
+      <h2>🧩 Sliding Puzzle</h2>
+      <p>Arrange the numbers in order by sliding tiles. Use your logic and planning skills!</p>
+      
+      <div class="puzzle-stats">
+        <div class="stat-item">
+          <div class="stat-value" id="puzzleMoves">0</div>
+          <div class="stat-label">Moves</div>
+        </div>
+        <div class="stat-item">
+          <div class="stat-value" id="puzzleTimer">0:00</div>
+          <div class="stat-label">Time</div>
+        </div>
+        <div class="stat-item">
+          <div class="stat-value" id="puzzleBest">--</div>
+          <div class="stat-label">Best</div>
+        </div>
+      </div>
+      
+      <div class="puzzle-container">
+        <div class="puzzle-board"></div>
+        <div class="puzzle-controls">
+          <button class="btn btn-primary" onclick="puzzleGame.init()">New Game</button>
+          <button class="btn btn-outline" onclick="puzzleGame.shuffle(); puzzleGame.render(); puzzleGame.startTimer(); puzzleGame.moves = 0; document.getElementById('puzzleMoves').textContent = '0';">Shuffle</button>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Memory Match Game -->
+  <section id="memory-match">
+    <div class="game-section">
+      <h2>🎴 Memory Match</h2>
+      <p>Flip cards and find matching pairs. Train your memory with this classic game!</p>
+      
+      <div class="score-board">
+        <div class="score-item">
+          <div class="score-label">Moves</div>
+          <div class="score-value" id="memoryMoves">0</div>
+        </div>
+        <div class="score-item">
+          <div class="score-label">Matches</div>
+          <div class="score-value" id="memoryMatches">0/8</div>
+        </div>
+      </div>
+      
+      <div class="memory-grid"></div>
+      
+      <div class="puzzle-controls" style="margin-top: 30px;">
+        <button class="btn btn-primary" onclick="memoryGame.reset()">New Game</button>
+      </div>
+    </div>
+  </section>
+
+  <!-- Color Match Game -->
+  <section id="color-match">
+    <div class="game-section">
+      <h2>🎨 Color Match</h2>
+      <p>Is the text color matching the word? Test your brain's processing speed!</p>
+      
+      <div class="score-board">
+        <div class="score-item">
+          <div class="score-label">Score</div>
+          <div class="score-value" id="colorScore">0</div>
+        </div>
+        <div class="score-item">
+          <div class="score-label">Time</div>
+          <div class="score-value" id="colorTimer">30</div>
+        </div>
+      </div>
+      
+      <div class="color-match-container">
+        <div class="color-display"></div>
+        <div class="color-options"></div>
+        <button class="btn btn-primary" onclick="colorMatchGame.reset()">Restart Game</button>
+      </div>
+    </div>
+  </section>
+
+  <!-- Reaction Time Game -->
+  <section id="reaction-time">
+    <div class="game-section">
+      <h2>⚡ Reaction Time</h2>
+      <p>Test your reflexes! Click when the screen turns green. How fast are you?</p>
+      
+      <div class="score-board">
+        <div class="score-item">
+          <div class="score-label">Average</div>
+          <div class="score-value" id="reactionAvg">--</div>
+        </div>
+        <div class="score-item">
+          <div class="score-label">Best</div>
+          <div class="score-value" id="reactionBest">--</div>
+        </div>
+      </div>
+      
+      <div class="reaction-container">
+        <div class="reaction-area"></div>
+        <button class="btn btn-primary" onclick="reactionGame.init()">Start Game</button>
+      </div>
+    </div>
+  </section>
+
+  <!-- Leaderboard Section -->
+  <section id="leaderboard">
+    <div class="section-header">
+      <span class="section-tag">Competition</span>
+      <h2 class="section-title">Global <span class="gradient-text">Leaderboard</span></h2>
+    </div>
+
+    <div class="game-section" style="max-width: 800px; margin: 0 auto;">
+      <table style="width: 100%; border-collapse: collapse;">
+        <thead>
+          <tr style="border-bottom: 1px solid var(--glass-border);">
+            <th style="padding: 15px; text-align: left; color: var(--primary);">Rank</th>
+            <th style="padding: 15px; text-align: left; color: var(--primary);">Player</th>
+            <th style="padding: 15px; text-align: left; color: var(--primary);">Game</th>
+            <th style="padding: 15px; text-align: right; color: var(--primary);">Score</th>
+          </tr>
+        </thead>
+        <tbody id="leaderboardBody">
+          <tr style="border-bottom: 1px solid var(--glass-border);">
+            <td style="padding: 15px;">🥇</td>
+            <td style="padding: 15px; font-weight: 700;">ProGamer123</td>
+            <td style="padding: 15px;">Sliding Puzzle</td>
+            <td style="padding: 15px; text-align: right; color: var(--primary);">42 moves</td>
+          </tr>
+          <tr style="border-bottom: 1px solid var(--glass-border);">
+            <td style="padding: 15px;">🥈</td>
+            <td style="padding: 15px; font-weight: 700;">PuzzleMaster</td>
+            <td style="padding: 15px;">Memory Match</td>
+            <td style="padding: 15px; text-align: right; color: var(--primary);">18 moves</td>
+          </tr>
+          <tr style="border-bottom: 1px solid var(--glass-border);">
+            <td style="padding: 15px;">🥉</td>
+            <td style="padding: 15px; font-weight: 700;">SpeedDemon</td>
+            <td style="padding: 15px;">Reaction Time</td>
+            <td style="padding: 15px; text-align: right; color: var(--primary);">185ms</td>
+          </tr>
+          <tr style="border-bottom: 1px solid var(--glass-border);">
+            <td style="padding: 15px;">4</td>
+            <td style="padding: 15px; font-weight: 700;">BrainStorm</td>
+            <td style="padding: 15px;">Color Match</td>
+            <td style="padding: 15px; text-align: right; color: var(--primary);">45 points</td>
+          </tr>
+          <tr>
+            <td style="padding: 15px;">5</td>
+            <td style="padding: 15px; font-weight: 700;">GameKing99</td>
+            <td style="padding: 15px;">Sliding Puzzle</td>
+            <td style="padding: 15px; text-align: right; color: var(--primary);">55 moves</td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+  </section>
+
+  <!-- About Section -->
+  <section id="about">
+    <div class="section-header">
+      <span class="section-tag">About Us</span>
+      <h2 class="section-title">Why <span class="gradient-text">GameZone</span>?</h2>
+    </div>
+
+    <div class="games-grid">
+      <div class="game-card">
+        <div class="game-img" style="background: linear-gradient(135deg, #1e3a8a, #3b82f6);">🎯</div>
+        <div class="game-info">
+          <h3>Brain Training</h3>
+          <p>Our games are designed to improve cognitive functions like memory, focus, and problem-solving.</p>
+        </div>
+      </div>
+
+      <div class="game-card">
+        <div class="game-img" style="background: linear-gradient(135deg, #1d4ed8, #3b82f6);">🏆</div>
+        <div class="game-info">
+          <h3>Competitive</h3>
+          <p>Compete with players worldwide on our global leaderboards. Climb the ranks and become a champion!</p>
+        </div>
+      </div>
+
+      <div class="game-card">
+        <div class="game-img" style="background: linear-gradient(135deg, #1e40af, #3b82f6);">✨</div>
+        <div class="game-info">
+          <h3>Premium Experience</h3>
+          <p>Beautiful animations, smooth gameplay, and stunning visuals. Gaming experience like never before!</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Contact Section -->
+  <section id="contact">
+    <div class="section-header">
+      <span class="section-tag">Get In Touch</span>
+      <h2 class="section-title">Let's <span class="gradient-text">Connect</span></h2>
+    </div>
+
+    <div class="game-section" style="max-width: 600px; margin: 0 auto; text-align: center;">
+      <p style="color: var(--gray); margin-bottom: 30px;">
+        Have feedback, suggestions, or just want to say hi? We'd love to hear from you!
+      </p>
+      <div id="contactForm" style="display: flex; flex-direction: column; gap: 20px;">
+        <input type="text" id="contactName" placeholder="Your Name" style="padding: 16px 20px; background: var(--glass-bg); border: 1px solid var(--glass-border); border-radius: 12px; color: var(--light); font-size: 15px; outline: none;">
+        <input type="email" id="contactEmail" placeholder="Your Email" style="padding: 16px 20px; background: var(--glass-bg); border: 1px solid var(--glass-border); border-radius: 12px; color: var(--light); font-size: 15px; outline: none;">
+        <textarea id="contactMessage" placeholder="Your Message" rows="5" style="padding: 16px 20px; background: var(--glass-bg); border: 1px solid var(--glass-border); border-radius: 12px; color: var(--light); font-size: 15px; outline: none; resize: vertical; font-family: inherit;"></textarea>
+        <button class="btn btn-primary" id="sendMessageBtn" style="width: 100%;">Send Message</button>
+      </div>
+      <div id="contactSuccess" class="contact-success">
+        ✅ Message sent successfully! We'll get back to you soon.
+      </div>
+    </div>
+  </section>
+
+  <!-- Footer -->
+  <footer>
+    <div class="social-links">
+      <a href="#" aria-label="Discord">DC</a>
+      <a href="#" aria-label="Twitter">TW</a>
+      <a href="#" aria-label="Instagram">IG</a>
+      <a href="#" aria-label="YouTube">YT</a>
+    </div>
+    <p>Made with ❤️ by <a href="index.html" class="gradient-text">GameZone</a></p>
+    <p style="font-size: 13px; margin-top: 8px;">© 2026 All Rights Reserved</p>
+    <P style="font-size: 13px; margin-top: 8px;"> NUMBER/03193319272</P>
+    <div class="footer-bottom">
+      <p>Premium Puzzle Games | Challenge Your Mind</p>
+    </div>
+  </footer>
+
+  <button class="scroll-top" aria-label="Scroll to top">↑</button>
+
+  <script src="games-main.js"></script>
+  <script>
+    function scrollToGame(gameId) {
+      const element = document.getElementById(gameId);
+      if (element) {
+        element.scrollIntoView({ behavior: 'smooth', block: 'start' });
+      }
+    }
+  </script>
 </body>
 </html>
